@@ -1,4 +1,4 @@
-# 🌾 aapki mandi — Smart Farm-Gate Sales & Net-Price Discovery Platform
+# 🌾 Farmer Trade — Smart Farm-Gate Sales & Net-Price Discovery Platform
 
 > **Smart India Hackathon (SIH) 2026 Prototype**
 > Strengthening market linkages and price discovery for farmers through FPO aggregation, live bidding, and transparent net realization calculation.
@@ -13,9 +13,9 @@ Smallholder farmers in India sell produce at below-market prices due to:
 - **Middleman dependency** — arhatiya commissions eat into margins
 - **No trust layer** — no way to verify buyer reliability
 
-## 💡 Solution — aapki mandi
+## 💡 Solution — Farmer Trade
 
-aapki mandi bridges the gap between farmers and buyers through:
+Farmer Trade bridges the gap between farmers and buyers through:
 
 | Feature | What It Does |
 |---------|-------------|
@@ -32,7 +32,7 @@ aapki mandi bridges the gap between farmers and buyers through:
 |-------------|-------|------------|---------|
 | Nearby Mandi | ₹1,600/q | ₹20/q | ₹1,580/q |
 | Direct Buyer | ₹1,950/q | ₹280/q | ₹1,670/q |
-| **aapki mandi FPO Bulk** ✅ | ₹1,950/q | ₹130/q | **₹1,820/q** |
+| **Farmer Trade FPO Bulk** ✅ | ₹1,950/q | ₹130/q | **₹1,820/q** |
 
 > **+₹240/quintal advantage → +₹4,800 additional income for 20 quintals**
 
@@ -64,10 +64,10 @@ aapki mandi bridges the gap between farmers and buyers through:
 ## 📁 Project Structure
 
 ```
-aapki mandi/
+Farmer Trade/
 ├── .gitignore
 ├── README.md
-├── aapki mandi-backend/
+├── Farmer Trade-backend/
 │   ├── config/               # Database configs (turso, mongo)
 │   ├── controllers/          # API route controllers
 │   ├── middleware/           # Auth and role guards
@@ -80,7 +80,7 @@ aapki mandi/
 │   ├── server.js             # Entry point
 │   ├── package.json
 │   └── .env                  # Secrets (optional for hackathon)
-└── aapki mandi-frontend/
+└── Farmer Trade-frontend/
     ├── index.html            # Landing page
     ├── login.html            # OTP Login page
     ├── dashboard.html        # Farmer Dashboard
@@ -108,14 +108,14 @@ aapki mandi/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/ssislive/aapki mandi.git
-cd aapki mandi
+git clone https://github.com/ssislive/Farmer Trade.git
+cd Farmer Trade
 ```
 
 ### 2. Backend Setup
 
 ```bash
-cd aapki mandi-backend
+cd Farmer Trade-backend
 
 # Install dependencies
 npm install
@@ -129,7 +129,7 @@ cp .env.example .env   # (if .env.example exists)
 
 The backend is configured to fall back to a local SQLite database (`local.db`) and a default dummy JWT secret if no `.env` file is present. This ensures the prototype runs out-of-the-box. 
 
-If you want to use cloud databases, create `aapki mandi-backend/.env`:
+If you want to use cloud databases, create `Farmer Trade-backend/.env`:
 
 ```env
 PORT=5000
@@ -146,7 +146,7 @@ JWT_SECRET="your-super-secret-jwt-key-change-this"
 ### 4. Start the Backend (Terminal 1)
 
 ```bash
-cd aapki mandi-backend
+cd Farmer Trade-backend
 
 # Seed Demo Data (Creates local.db and populates it)
 node scripts/seedDemoData.js
@@ -162,7 +162,7 @@ Server starts at `http://localhost:5000`
 Since the frontend uses `fetch` to talk to the backend, it must be served via a local web server to avoid CORS issues.
 
 ```bash
-cd aapki mandi-frontend
+cd Farmer Trade-frontend
 
 # Serve the static files using npx
 npx serve .
@@ -278,5 +278,5 @@ This project is part of the Smart India Hackathon 2026 prototype.
 ---
 
 <p align="center">
-  <b>🌾 aapki mandi — Bridging Farms to Markets, Transparently</b>
+  <b>🌾 Farmer Trade — Bridging Farms to Markets, Transparently</b>
 </p>

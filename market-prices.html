@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Market Prices | aapki mandi</title>
+    <title>Market Prices | Farmer Trade</title>
 
     <link rel="stylesheet" href="css/market-prices.css">
+    <link rel="stylesheet" href="css/profile-menu.css">
 </head>
 
 <body>
@@ -21,11 +22,11 @@
         <a href="index.html" class="brand">
 
             <span class="brand-mark">
-                <img src="logo.ico" alt="aapki mandi logo" />
+                <img src="logo.ico" alt="Farmer Trade logo" />
             </span>
 
             <span class="brand-text">
-                <strong>aapki mandi</strong>
+                <strong>Farmer Trade</strong>
                 <small>CONNECTING FARMERS TO OPPORTUNITY</small>
             </span>
 
@@ -79,13 +80,19 @@
             </a>
 
 
-            <a
-                href="profile.html"
-                class="profile-button"
-                aria-label="Profile"
-            >
-                F
-            </a>
+            <div class="profile-menu">
+                <a
+                    href="profile.html"
+                    class="profile-button"
+                    aria-label="Profile"
+                >
+                    F
+                </a>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile</a>
+                    <button type="button" data-action="logout">Logout</button>
+                </div>
+            </div>
 
         </div>
 
@@ -440,7 +447,7 @@
 
 
             <a
-                href="sell-produce.html"
+                href="lots.html"
                 class="primary-button"
                 id="marketActionButton"
             >
@@ -458,6 +465,7 @@
          ===================================================== -->
 
     <script src="js/market-prices.js"></script>
+    <script src="js/profile-menu.js"></script>
 
 </body>
 
