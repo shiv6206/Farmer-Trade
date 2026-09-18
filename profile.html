@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>aapki mandi | Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="css/profile.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a
+                href="#"
+                class="brand"
+                id="brandLink"
+            >
+
+                <div class="brand-mark">
+                    <img src="logo.ico" alt="aapki mandi logo" />
+                </div>
+
+                <div class="brand-text">
+
+                    <strong>
+                        aapki mandi
+                    </strong>
+
+                    <small>
+                        MARKET INTELLIGENCE &amp; CONNECTION
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <nav
+                class="main-nav"
+                id="mainNav"
+            >
+
+                <a
+                    href="#"
+                    id="dashboardLink"
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="lots.html"
+                    id="roleActionLink"
+                >
+                    Produce
+                </a>
+
+
+                <a
+                    href="notifications.html"
+                >
+                    Notifications
+                </a>
+
+
+                <a
+                    href="support.html"
+                >
+                    Support
+                </a>
+
+            </nav>
+
+
+            <button
+                type="button"
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+
+            <a
+                href="profile.html"
+                class="header-profile"
+                id="headerProfileButton"
+                aria-label="Profile"
+            >
+                U
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="profile-main">
+
+        <section class="profile-shell">
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        MY ACCOUNT
+                    </p>
+
+                    <h1>
+                        Your <span>Profile</span>
+                    </h1>
+
+                    <p>
+                        Manage your personal information and
+                        marketplace preferences in one place.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="edit-button"
+                    id="editProfileButton"
+                >
+                    Edit Profile
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE HERO
+                 ================================================= -->
+
+            <section class="profile-card profile-hero">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
+                    U
+                </div>
+
+
+                <div class="profile-identity">
+
+                    <div class="identity-top">
+
+                        <h2 id="profileName">
+                            User
+                        </h2>
+
+                        <span
+                            class="role-badge"
+                            id="roleBadge"
+                        >
+                            User
+                        </span>
+
+                    </div>
+
+
+                    <p
+                        class="profile-location"
+                        id="profileLocation"
+                    >
+                        Location
+                    </p>
+
+
+                    <p
+                        class="profile-intro"
+                        id="introText"
+                    >
+                        Keep your information up to date.
+                    </p>
+
+                </div>
+
+
+                <div class="member-box">
+
+                    <span>
+                        MEMBER SINCE
+                    </span>
+
+                    <strong id="profileMemberSince">
+                        2026
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 BASIC INFORMATION
+                 ================================================= -->
+
+            <section class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            ACCOUNT DETAILS
+                        </p>
+
+                        <h2>
+                            Personal information
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="details-grid">
+
+                    <div class="detail-card">
+
+                        <span>
+                            Full Name
+                        </span>
+
+                        <strong id="detailName">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <span>
+                            Mobile Number
+                        </span>
+
+                        <strong id="detailPhone">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <span>
+                            Email Address
+                        </span>
+
+                        <strong id="detailEmail">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <span>
+                            Account Type
+                        </span>
+
+                        <strong id="detailRole">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <span>
+                            State
+                        </span>
+
+                        <strong id="detailState">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <span>
+                            District
+                        </span>
+
+                        <strong id="detailDistrict">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ROLE INFORMATION
+                 ================================================= -->
+
+            <section class="content-section role-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p
+                            class="section-label"
+                            id="roleDetailsLabel"
+                        >
+                            PROFILE INFORMATION
+                        </p>
+
+                        <h2 id="roleDetailsTitle">
+                            Your information
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="details-grid role-details-grid"
+                    id="roleDetailsGrid"
+                >
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ACCOUNT STATUS
+                 ================================================= -->
+
+            <section class="status-strip">
+
+                <div class="status-icon">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Account verified
+                    </strong>
+
+                    <p>
+                        Your aapki mandi account is currently active.
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="verified-badge"
+                    id="verificationStatus"
+                >
+                    Verified
+                </span>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         EDIT PROFILE MODAL
+         ===================================================== -->
+
+    <div
+        class="modal"
+        id="editModal"
+        hidden
+    >
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="section-label">
+                        ACCOUNT SETTINGS
+                    </p>
+
+                    <h2>
+                        Edit your profile
+                    </h2>
+
+                    <p>
+                        Update the information used by aapki mandi
+                        to connect you with relevant opportunities.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="close-button"
+                    id="closeModalButton"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="profileForm">
+
+                <!-- COMMON INFORMATION -->
+
+                <div class="form-block">
+
+                    <div class="form-block-heading">
+
+                        <span class="block-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Personal information
+                            </strong>
+
+                            <small>
+                                Your basic account details
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="editName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editName"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editPhone">
+                                Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="editPhone"
+                                maxlength="10"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="editEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="editEmail"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editState">
+                                State
+                            </label>
+
+                            <select
+                                id="editState"
+                                required
+                            >
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editDistrict">
+                                District
+                            </label>
+
+                            <select
+                                id="editDistrict"
+                                required
+                            >
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FARMER SECTION -->
+
+                <div
+                    class="form-block farmer-edit-block"
+                    id="farmerEditBlock"
+                >
+
+                    <div class="form-block-heading">
+
+                        <span class="block-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Farming information
+                            </strong>
+
+                            <small>
+                                Help buyers understand what you offer
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="editFarmSize">
+                                Farm Size
+                            </label>
+
+                            <div class="input-with-unit">
+
+                                <input
+                                    type="number"
+                                    id="editFarmSize"
+                                    min="0"
+                                    step="0.1"
+                                >
+
+                                <span>
+                                    acres
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editExperience">
+                                Farming Experience
+                            </label>
+
+                            <div class="input-with-unit">
+
+                                <input
+                                    type="number"
+                                    id="editExperience"
+                                    min="0"
+                                >
+
+                                <span>
+                                    years
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editSeason">
+                                Preferred Season
+                            </label>
+
+                            <select id="editSeason">
+
+                                <option value="">
+                                    Select season
+                                </option>
+
+                                <option value="Kharif">
+                                    Kharif
+                                </option>
+
+                                <option value="Rabi">
+                                    Rabi
+                                </option>
+
+                                <option value="Zaid">
+                                    Zaid
+                                </option>
+
+                                <option value="All Seasons">
+                                    All Seasons
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editQuantity">
+                                Typical Quantity
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editQuantity"
+                                placeholder="e.g. 20–30"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="editCrops">
+                                What do you sell?
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editCrops"
+                                placeholder="e.g. Wheat, Rice, Onion"
+                            >
+
+                            <small class="field-help">
+                                Separate multiple crops with commas.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUYER SECTION -->
+
+                <div
+                    class="form-block buyer-edit-block"
+                    id="buyerEditBlock"
+                >
+
+                    <div class="form-block-heading">
+
+                        <span class="block-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Buying information
+                            </strong>
+
+                            <small>
+                                Help farmers understand your requirements
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+
+                            <label for="editBusinessName">
+                                Business / Organization
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editBusinessName"
+                                placeholder="e.g. FreshMart"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editRequirement">
+                                Purchase Requirement
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editRequirement"
+                                placeholder="e.g. 50–100 quintals"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="editCategory">
+                                Preferred Category
+                            </label>
+
+                            <select id="editCategory">
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="Vegetables">
+                                    Vegetables
+                                </option>
+
+                                <option value="Fruits">
+                                    Fruits
+                                </option>
+
+                                <option value="Grains">
+                                    Grains
+                                </option>
+
+                                <option value="Pulses">
+                                    Pulses
+                                </option>
+
+                                <option value="Spices">
+                                    Spices
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="editProduce">
+                                What do you buy?
+                            </label>
+
+                            <input
+                                type="text"
+                                id="editProduce"
+                                placeholder="e.g. Onion, Potato, Tomato"
+                            >
+
+                            <small class="field-help">
+                                Separate multiple produce items with commas.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelEditButton"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                    >
+                        Save Changes
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/profile.js"></script>
+
+</body>
+
+</html>

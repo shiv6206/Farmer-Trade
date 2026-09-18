@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>aapki mandi | Live Bidding</title>
+
+    <link rel="stylesheet" href="css/bidding.css">
+</head>
+
+<body>
+
+<main class="bidding-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+            <span class="brand-mark">
+                <img src="logo.ico" alt="aapki mandi logo" />
+            </span>
+            <span class="brand-text">
+                <strong>aapki mandi</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
+        </a>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="dashboard.html" id="dashboardLink">
+                Dashboard
+            </a>
+
+            <a href="lots.html">
+                <span id="lotsNavText">My Lots</span>
+            </a>
+
+            <a href="bidding.html" class="active">
+                Bidding
+            </a>
+
+            <a href="logistics.html">
+                Logistics
+            </a>
+
+            <a href="transactions.html">
+                Transactions
+            </a>
+
+        </nav>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                <span></span>
+                ♧
+            </a>
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                <span id="profileInitial">U</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="hero">
+
+        <p class="hero-label" id="heroLabel">
+            LIVE BIDDING
+        </p>
+
+        <h1 id="heroTitle">
+            Live <span>bidding.</span>
+        </h1>
+
+        <p class="hero-description" id="heroDescription">
+            View bids on your produce lots in real time, place offers
+            on available produce and manage negotiations from one place.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         LIVE STATUS BAR
+         ===================================================== -->
+
+    <section class="status-bar">
+
+        <div class="status-item">
+            <span class="status-dot pulse"></span>
+            <span class="status-label">LIVE</span>
+        </div>
+
+        <div class="status-item">
+            <span class="status-label muted">ACTIVE LOTS</span>
+            <strong id="activeLotsCount">0</strong>
+        </div>
+
+        <div class="status-item">
+            <span class="status-label muted">TOTAL BIDS</span>
+            <strong id="totalBidsCount">0</strong>
+        </div>
+
+        <div class="status-item">
+            <span class="status-label muted">LAST UPDATED</span>
+            <strong id="lastUpdated">--</strong>
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FARMER VIEW — BIDS ON MY LOTS
+         ===================================================== -->
+
+    <section class="role-view farmer-view" id="farmerView">
+
+        <div class="section-heading">
+
+            <div>
+                <p class="section-label">FARMER</p>
+                <h2>Bids on my lots</h2>
+            </div>
+
+            <span class="role-badge">Farmer</span>
+
+        </div>
+
+
+        <!-- FILTER TABS -->
+
+        <div class="filter-tabs" id="farmerTabs">
+
+            <button
+                type="button"
+                class="filter-tab active"
+                data-filter="all"
+            >
+                All Bids
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="pending"
+            >
+                Pending
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="accepted"
+            >
+                Accepted
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="declined"
+            >
+                Declined
+            </button>
+
+        </div>
+
+
+        <!-- FARMER BIDS GRID -->
+
+        <div
+            class="bids-grid"
+            id="farmerBidsContainer"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUYER VIEW — MY OFFERS
+         ===================================================== -->
+
+    <section class="role-view buyer-view" id="buyerView">
+
+        <div class="section-heading">
+
+            <div>
+                <p class="section-label">BUYER</p>
+                <h2>My active offers</h2>
+            </div>
+
+            <span class="role-badge">Buyer</span>
+
+        </div>
+
+
+        <!-- FILTER TABS -->
+
+        <div class="filter-tabs" id="buyerTabs">
+
+            <button
+                type="button"
+                class="filter-tab active"
+                data-filter="all"
+            >
+                All Offers
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="pending"
+            >
+                Pending
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="accepted"
+            >
+                Accepted
+            </button>
+
+            <button
+                type="button"
+                class="filter-tab"
+                data-filter="declined"
+            >
+                Declined
+            </button>
+
+        </div>
+
+
+        <!-- BUYER BIDS GRID -->
+
+        <div
+            class="bids-grid"
+            id="buyerBidsContainer"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BID DETAIL MODAL
+         ===================================================== -->
+
+    <div
+        class="modal"
+        id="bidModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+            <p class="section-label">
+                BID DETAILS
+            </p>
+
+            <h2 id="modalBidTitle">
+                Bid details
+            </h2>
+
+            <div
+                class="modal-details"
+                id="modalBidDetails"
+            ></div>
+
+            <!-- FARMER ACTION: Accept / Decline -->
+
+            <div
+                class="farmer-bid-actions"
+                id="farmerBidActions"
+            >
+
+                <h3>Respond to this offer</h3>
+
+                <div class="bid-response-buttons">
+
+                    <button
+                        type="button"
+                        class="accept-button"
+                        id="acceptBidButton"
+                    >
+                        Accept Offer
+                        <span>✓</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="decline-button"
+                        id="declineBidButton"
+                    >
+                        Decline
+                        <span>×</span>
+                    </button>
+
+                </div>
+
+                <div
+                    class="form-message"
+                    id="bidResponseMessage"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="js/bidding.js"></script>
+
+</body>
+</html>

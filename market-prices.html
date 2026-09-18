@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Market Prices | aapki mandi</title>
+
+    <link rel="stylesheet" href="css/market-prices.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+
+            <span class="brand-mark">
+                <img src="logo.ico" alt="aapki mandi logo" />
+            </span>
+
+            <span class="brand-text">
+                <strong>aapki mandi</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
+
+        </a>
+
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <!-- CHANGED: added id="dashboardNavLink" -->
+            <a
+                href="dashboard.html"
+                id="dashboardNavLink"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="market-prices.html"
+                class="active"
+            >
+                Market Prices
+            </a>
+
+            <a
+                href="lots.html"
+                id="sellNavLink"
+            >
+                Sell Product
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                ♧
+                <span></span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                F
+            </a>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="page-intro">
+
+            <p class="section-label">
+                TODAY'S MARKET
+            </p>
+
+
+            <h1 id="marketPageTitle">
+
+                Know the market.
+
+                <span id="marketPageTitleAccent">
+                    Sell with confidence.
+                </span>
+
+            </h1>
+
+
+            <p
+                class="intro-text"
+                id="marketIntroText"
+            >
+                Explore agricultural prices by region, season and crop
+                to understand market opportunities before selling your produce.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FILTERS
+             ================================================= -->
+
+        <section class="filter-panel">
+
+            <div class="filter-heading">
+
+                <div class="location-icon">
+                    •
+                </div>
+
+
+                <div>
+
+                    <span class="small-label">
+                        MARKET REGION
+                    </span>
+
+                    <strong id="selectedRegion">
+                        Pune, Maharashtra
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-controls">
+
+
+                <!-- STATE -->
+
+                <div class="filter-field">
+
+                    <label for="stateSelect">
+                        State
+                    </label>
+
+                    <div class="select-wrap">
+
+                        <select id="stateSelect">
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DISTRICT -->
+
+                <div class="filter-field">
+
+                    <label for="districtSelect">
+                        District
+                    </label>
+
+                    <div class="select-wrap">
+
+                        <select id="districtSelect">
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SEASON -->
+
+                <div class="filter-field">
+
+                    <label for="seasonSelect">
+                        Season
+                    </label>
+
+                    <div class="select-wrap">
+
+                        <select id="seasonSelect">
+
+                            <option value="all">
+                                All Seasons
+                            </option>
+
+                            <option value="Kharif">
+                                Kharif
+                            </option>
+
+                            <option value="Rabi">
+                                Rabi
+                            </option>
+
+                            <option value="Zaid">
+                                Zaid
+                            </option>
+
+                            <option value="Year Round">
+                                Year Round
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CROP TYPE -->
+
+                <div class="filter-field">
+
+                    <label for="cropTypeSelect">
+                        Crop Type
+                    </label>
+
+                    <div class="select-wrap">
+
+                        <select id="cropTypeSelect">
+
+                            <option value="all">
+                                All Crop Types
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CROP -->
+
+                <div class="filter-field crop-filter">
+
+                    <label for="cropSelect">
+                        Select Crop
+                    </label>
+
+                    <div class="select-wrap">
+
+                        <select id="cropSelect">
+
+                            <option value="all">
+                                All Crops
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MARKET STATUS
+             ================================================= -->
+
+        <div class="market-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                Market information available
+            </span>
+
+            <span id="lastUpdated">
+                Updated recently
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MARKET CARDS
+             ================================================= -->
+
+        <section class="market-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        CURRENT PRICES
+                    </p>
+
+                    <h2>
+                        Today's rates
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- JS WILL INSERT CARDS HERE -->
+
+            <div
+                class="market-grid"
+                id="marketGrid"
+            >
+            </div>
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                class="empty-state"
+                id="emptyState"
+                hidden
+            >
+
+                <div class="empty-icon">
+                    ₹
+                </div>
+
+                <h3>
+                    No market data found
+                </h3>
+
+                <p>
+                    Try another season, crop type, crop or region.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MARKET NOTE
+             ================================================= -->
+
+        <section class="market-note">
+
+            <div class="note-icon">
+                ₹
+            </div>
+
+
+            <div>
+
+                <h3 id="marketNoteHeading">
+                    Compare before you sell.
+                </h3>
+
+
+                <p id="marketNoteDescription">
+                    Market prices can vary by location, crop quality,
+                    season and market conditions. Use this information
+                    to compare opportunities before listing your produce.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BOTTOM CTA
+             ================================================= -->
+
+        <section class="bottom-action">
+
+            <p class="section-label">
+
+                <span id="marketCtaLabel">
+                    READY TO SELL?
+                </span>
+
+            </p>
+
+
+            <h2 id="marketCtaHeading">
+
+                Turn market information into
+
+                <span id="marketCtaAccent">
+                    better opportunities.
+                </span>
+
+            </h2>
+
+
+            <a
+                href="sell-produce.html"
+                class="primary-button"
+                id="marketActionButton"
+            >
+                Sell Your Produce →
+            </a>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="js/market-prices.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>aapki mandi | Buyer Dashboard</title>
+
+    <link rel="stylesheet" href="css/buyer-dashboard.css">
+    <link rel="stylesheet" href="css/profile-menu.css">
+</head>
+
+<body>
+
+<main class="dashboard">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+
+            <span class="brand-mark">
+                <img src="logo.ico" alt="aapki mandi logo" />
+            </span>
+
+            <span class="brand-text">
+
+                <strong>
+                    aapki mandi
+                </strong>
+
+                <small>
+                    CONNECTING FARMERS TO OPPORTUNITY
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="buyer-dashboard.html" class="active">
+                Dashboard
+            </a>
+
+            <a href="market-prices.html">
+                Market Prices
+            </a>
+
+            <a href="lots.html">
+                Find Product
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+
+        </nav>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                <span></span>
+                ♧
+            </a>
+
+            <div class="profile-menu">
+                <a
+                    href="profile.html"
+                    class="profile-button"
+                    aria-label="Profile"
+                >
+                    B
+                </a>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile</a>
+                    <button type="button" data-action="logout">Logout</button>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <p class="hero-label">
+            BUYER DASHBOARD
+        </p>
+
+        <h1>
+            Find the right <span>produce.</span>
+        </h1>
+
+        <p class="hero-description">
+            Discover produce directly from farmers,
+            compare available listings and connect
+            with sellers across India.
+        </p>
+
+    </section>
+
+
+    <!-- ================= LOCATION ================= -->
+
+    <section class="region-panel">
+
+        <div class="region-info">
+
+            <div class="location-icon">
+                ●
+            </div>
+
+            <div>
+
+                <span class="small-label">
+                    YOUR REGION
+                </span>
+
+                <strong id="regionDisplay">
+                    Pune, Maharashtra, India
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="region-controls">
+
+            <div class="field">
+
+                <label for="stateSelect">
+                    State
+                </label>
+
+                <div class="select-box">
+
+                    <select id="stateSelect">
+
+                        <option value="">
+                            Select State
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="districtSelect">
+                    District
+                </label>
+
+                <div class="select-box">
+
+                    <select
+                        id="districtSelect"
+                        disabled
+                    >
+
+                        <option value="">
+                            Select District
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="search-section">
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                PRODUCE MARKETPLACE
+            </p>
+
+            <h2>
+                What are you looking for?
+            </h2>
+
+        </div>
+
+
+        <div class="search-panel">
+
+            <div class="search-field">
+
+                <label for="cropSearch">
+                    Produce
+                </label>
+
+                <input
+                    type="search"
+                    id="cropSearch"
+                    placeholder="Search wheat, rice, onion..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="categorySelect">
+                    Category
+                </label>
+
+                <div class="select-box">
+
+                    <select id="categorySelect">
+
+                        <option value="">
+                            All categories
+                        </option>
+
+                        <option value="cereal">
+                            Cereals
+                        </option>
+
+                        <option value="vegetable">
+                            Vegetables
+                        </option>
+
+                        <option value="fruit">
+                            Fruits
+                        </option>
+
+                        <option value="pulse">
+                            Pulses
+                        </option>
+
+                        <option value="spice">
+                            Spices
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="search-button"
+                id="searchButton"
+            >
+                Search
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <section class="actions">
+
+        <h2>
+            What would you like to do?
+        </h2>
+
+
+        <div class="action-grid">
+
+            <a
+                href="#produceListings"
+                class="action-card"
+            >
+
+                <div class="card-icon">
+                    ✓
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+                        Browse Produce
+                    </h3>
+
+                    <p>
+                        Explore available crops and
+                        listings from farmers.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="market-prices.html"
+                class="action-card"
+            >
+
+                <div class="card-icon">
+                    ₹
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+                        Check Market Prices
+                    </h3>
+
+                    <p>
+                        Compare current prices across
+                        different agricultural markets.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="#myRequests"
+                class="action-card"
+            >
+
+                <div class="card-icon">
+                    →
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+                        My Requests
+                    </h3>
+
+                    <p>
+                        Track purchase interests and
+                        responses from farmers.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCE LISTINGS ================= -->
+
+    <section
+        class="produce-section"
+        id="produceListings"
+    >
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                AVAILABLE PRODUCE
+            </p>
+
+            <h2>
+                Fresh from farmers
+            </h2>
+
+        </div>
+
+
+        <div
+            class="listing-status-bar"
+            id="listingStatusBar"
+        >
+
+            <span>
+                Showing available produce
+            </span>
+
+            <span id="listingCount">
+                0 listings
+            </span>
+
+        </div>
+
+
+        <div
+            class="produce-grid"
+            id="produceGrid"
+        >
+
+            <!-- Listings are loaded by JavaScript -->
+
+        </div>
+
+
+        <div
+            class="empty-state"
+            id="emptyState"
+            hidden
+        >
+
+            <div class="empty-icon">
+                —
+            </div>
+
+            <h3>
+                No produce found
+            </h3>
+
+            <p>
+                Try changing your search or location.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= REQUESTS ================= -->
+
+    <section
+        class="requests-section"
+        id="myRequests"
+    >
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                YOUR ACTIVITY
+            </p>
+
+            <h2>
+                My purchase requests
+            </h2>
+
+        </div>
+
+
+        <div
+            class="request-box"
+            id="requestBox"
+        >
+
+            <!-- Requests are loaded by JavaScript -->
+
+        </div>
+
+
+        <div
+            class="empty-state request-empty"
+            id="requestEmpty"
+        >
+
+            <div class="empty-icon">
+                —
+            </div>
+
+            <h3>
+                No purchase requests yet
+            </h3>
+
+            <p>
+                When you express interest in a farmer's
+                listing, your request will appear here.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MARKET OPPORTUNITY ================= -->
+
+    <section class="opportunity-section">
+
+        <div class="opportunity-content">
+
+            <p class="section-label">
+                SMART BUYING
+            </p>
+
+            <h2>
+                Buy closer to the source.
+            </h2>
+
+            <p>
+                Discover produce directly from farmers,
+                compare prices and make more informed
+                purchasing decisions.
+            </p>
+
+            <a
+                href="#produceListings"
+                class="brown-button"
+            >
+                Explore Produce →
+            </a>
+
+        </div>
+
+
+        <div class="opportunity-symbol">
+
+            <span>
+                ₹
+            </span>
+
+            <strong>
+                ↓
+            </strong>
+
+            <small>
+                Direct marketplace
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SUPPORT ================= -->
+
+    <section class="support-section">
+
+        <div>
+
+            <p class="section-label">
+                NEED HELP?
+            </p>
+
+            <h2>
+                We're here to help.
+            </h2>
+
+            <p>
+                Have a question about finding produce,
+                purchase requests or using aapki mandi?
+            </p>
+
+        </div>
+
+
+        <a
+            href="support.html"
+            class="support-button"
+        >
+            Contact Support →
+        </a>
+
+    </section>
+
+</main>
+
+
+<!-- ================= LISTING MODAL ================= -->
+
+<div
+    class="modal"
+    id="listingModal"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-overlay"
+        id="modalOverlay"
+    ></div>
+
+
+    <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalCropName"
+    >
+
+        <button
+            type="button"
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close listing"
+        >
+            ×
+        </button>
+
+
+        <p class="section-label">
+            PRODUCE LISTING
+        </p>
+
+        <h2 id="modalCropName">
+            Produce
+        </h2>
+
+
+        <div class="modal-price" id="modalPrice">
+            ₹0
+        </div>
+
+
+        <div class="modal-details">
+
+            <div>
+
+                <span>
+                    AVAILABLE
+                </span>
+
+                <strong id="modalQuantity">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    LOCATION
+                </span>
+
+                <strong id="modalLocation">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    CATEGORY
+                </span>
+
+                <strong id="modalCategory">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    LISTED
+                </span>
+
+                <strong id="modalListed">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="seller-box">
+
+            <span class="small-label">
+                SELLER
+            </span>
+
+            <strong id="modalSeller">
+                Farmer
+            </strong>
+
+            <span id="modalSellerLocation">
+                —
+            </span>
+
+        </div>
+
+
+        <form id="interestForm">
+
+            <input
+                type="hidden"
+                id="selectedListingId"
+            >
+
+
+            <div class="form-group">
+
+                <label for="interestQuantity">
+                    Quantity you need
+                </label>
+
+                <input
+                    type="number"
+                    id="interestQuantity"
+                    min="1"
+                    step="0.01"
+                    placeholder="Enter quantity"
+                    required
+                >
+
+                <small>
+                    Quantity is measured in quintals.
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="offerPrice">
+                    Your offered price / quintal
+                </label>
+
+                <input
+                    type="number"
+                    id="offerPrice"
+                    min="1"
+                    step="1"
+                    placeholder="Optional"
+                >
+
+                <small>
+                    Leave blank to accept the listed price.
+                </small>
+
+            </div>
+
+
+            <p
+                class="modal-message"
+                id="modalMessage"
+            ></p>
+
+
+            <button
+                type="submit"
+                class="brown-button modal-submit"
+            >
+                Send Purchase Interest →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="js/buyer-dashboard.js"></script>
+<script src="js/profile-menu.js"></script>
+
+</body>
+</html>
