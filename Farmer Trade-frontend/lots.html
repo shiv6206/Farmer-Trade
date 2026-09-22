@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Trade | Lots</title>
+
+    <link rel="stylesheet" href="css/lots.css">
+</head>
+
+<body>
+
+<main class="lots-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+            <span class="brand-mark">
+                <img src="logo.ico" alt="Farmer Trade logo" />
+            </span>
+
+            <span class="brand-text">
+                <strong>Farmer Trade</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
+        </a>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="dashboard.html" id="dashboardLink">
+                Dashboard
+            </a>
+
+            <a href="lots.html" class="active">
+                <span id="lotsNavText">My Lots</span>
+            </a>
+
+            <a href="bidding.html">
+                Bidding
+            </a>
+
+            <a href="logistics.html">
+                Logistics
+            </a>
+
+            <a href="transactions.html">
+                Transactions
+            </a>
+
+        </nav>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                <span></span>
+                ♧
+            </a>
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                <span id="profileInitial">U</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="hero">
+
+        <p class="hero-label" id="heroLabel">
+            SELL PRODUCE
+        </p>
+
+        <h1 id="heroTitle">
+            Sell your <span>produce.</span>
+        </h1>
+
+        <p class="hero-description" id="heroDescription">
+            List your harvest, reach genuine buyers and manage
+            your produce lots from one place.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FARMER VIEW
+         ===================================================== -->
+
+    <section class="role-view farmer-view" id="farmerView">
+
+        <div class="section-heading">
+
+            <div>
+                <p class="section-label">FARMER</p>
+
+                <h2>Create a produce lot</h2>
+            </div>
+
+            <span class="role-badge">Farmer</span>
+
+        </div>
+
+
+        <div class="form-card">
+
+            <form id="createLotForm">
+
+                <!-- PRODUCE TYPE -->
+
+                <div class="form-group">
+
+                    <label for="produceType">
+                        Produce Type
+                    </label>
+
+                    <select id="produceType" name="produceType" required>
+
+                        <option value="">
+                            Select type
+                        </option>
+
+                        <option value="fruit">
+                            Fruit
+                        </option>
+
+                        <option value="vegetable">
+                            Vegetable
+                        </option>
+
+                        <option value="grain">
+                            Grain
+                        </option>
+
+                        <option value="pulse">
+                            Pulse
+                        </option>
+
+                        <option value="oilseed">
+                            Oilseed
+                        </option>
+
+                        <option value="spices">
+                            Spices
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                    <small class="field-error" id="produceTypeError"></small>
+
+                </div>
+
+
+                <!-- SUBCATEGORY -->
+
+                <div class="form-group">
+
+                    <label for="crop">
+                        Produce / Crop
+                    </label>
+
+                    <select id="crop" name="crop" required disabled>
+
+                        <option value="">
+                            Select produce type first
+                        </option>
+
+                    </select>
+
+                    <small class="field-error" id="cropError"></small>
+
+                </div>
+
+
+                <!-- QUANTITY + PRICE -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            min="1"
+                            step="0.01"
+                            placeholder="e.g. 25"
+                            required
+                        >
+
+                        <small class="unit-label">
+                            Quintals
+                        </small>
+
+                        <small
+                            class="field-error"
+                            id="quantityError"
+                        ></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="price">
+                            Expected Price
+                        </label>
+
+                        <div class="price-input">
+
+                            <span>₹</span>
+
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                min="1"
+                                step="0.01"
+                                placeholder="Price per quintal"
+                                required
+                            >
+
+                        </div>
+
+                        <small class="unit-label">
+                            Per quintal
+                        </small>
+
+                        <small
+                            class="field-error"
+                            id="priceError"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GRADE + DATE -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="quality">
+                            Quality / Grade
+                        </label>
+
+                        <select id="quality" name="quality" required>
+
+                            <option value="">
+                                Select grade
+                            </option>
+
+                            <option value="Premium">
+                                Premium
+                            </option>
+
+                            <option value="Grade A">
+                                Grade A
+                            </option>
+
+                            <option value="Grade B">
+                                Grade B
+                            </option>
+
+                            <option value="Standard">
+                                Standard
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="harvestDate">
+                            Harvest / Availability
+                        </label>
+
+                        <input
+                            type="date"
+                            id="harvestDate"
+                            name="harvestDate"
+                            required
+                        >
+
+                        <small
+                            class="field-error"
+                            id="dateError"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATE + DISTRICT -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="state">
+                            State
+                        </label>
+
+                        <select
+                            id="state"
+                            name="state"
+                            required
+                        >
+
+                            <option value="">
+                                Select state
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="district">
+                            District
+                        </label>
+
+                        <select
+                            id="district"
+                            name="district"
+                            required
+                            disabled
+                        >
+
+                            <option value="">
+                                Select state first
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Additional details
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Mention relevant details about your produce..."
+                    ></textarea>
+
+                </div>
+
+
+                <div
+                    class="form-message"
+                    id="farmerFormMessage"
+                    aria-live="polite"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Create Produce Lot
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- MY LOTS -->
+
+        <section class="my-lots-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="section-label">YOUR PRODUCE</p>
+
+                    <h2>My active lots</h2>
+                </div>
+
+            </div>
+
+            <div
+                class="lots-grid"
+                id="farmerLotsContainer"
+            ></div>
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUYER VIEW
+         ===================================================== -->
+
+    <section
+        class="role-view buyer-view"
+        id="buyerView"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="section-label">
+                    BUYER MARKETPLACE
+                </p>
+
+                <h2>Find available produce</h2>
+
+            </div>
+
+            <span class="role-badge">
+                Buyer
+            </span>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="search-panel">
+
+            <div class="search-field">
+
+                <label for="buyerProduceType">
+                    Produce Type
+                </label>
+
+                <select id="buyerProduceType">
+
+                    <option value="">
+                        All types
+                    </option>
+
+                    <option value="fruit">
+                        Fruit
+                    </option>
+
+                    <option value="vegetable">
+                        Vegetable
+                    </option>
+
+                    <option value="grain">
+                        Grain
+                    </option>
+
+                    <option value="pulse">
+                        Pulse
+                    </option>
+
+                    <option value="oilseed">
+                        Oilseed
+                    </option>
+
+                    <option value="spices">
+                        Spices
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="buyerCrop">
+                    Produce / Crop
+                </label>
+
+                <select id="buyerCrop" disabled>
+
+                    <option value="">
+                        Select type first
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="buyerState">
+                    State
+                </label>
+
+                <select id="buyerState">
+
+                    <option value="">
+                        All states
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="buyerDistrict">
+                    District
+                </label>
+
+                <select id="buyerDistrict" disabled>
+
+                    <option value="">
+                        All districts
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="buyerQuality">
+                    Grade
+                </label>
+
+                <select id="buyerQuality">
+
+                    <option value="">
+                        Any grade
+                    </option>
+
+                    <option value="Premium">
+                        Premium
+                    </option>
+
+                    <option value="Grade A">
+                        Grade A
+                    </option>
+
+                    <option value="Grade B">
+                        Grade B
+                    </option>
+
+                    <option value="Standard">
+                        Standard
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="minPrice">
+                    Minimum Price
+                </label>
+
+                <input
+                    type="number"
+                    id="minPrice"
+                    min="0"
+                    placeholder="₹ / quintal"
+                >
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="maxPrice">
+                    Maximum Price
+                </label>
+
+                <input
+                    type="number"
+                    id="maxPrice"
+                    min="0"
+                    placeholder="₹ / quintal"
+                >
+
+            </div>
+
+
+            <div class="search-field">
+
+                <label for="minQuantity">
+                    Minimum Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="minQuantity"
+                    min="0"
+                    placeholder="Quintals"
+                >
+
+            </div>
+
+
+            <div class="search-field search-keyword">
+
+                <label for="searchCrop">
+                    Search
+                </label>
+
+                <input
+                    type="search"
+                    id="searchCrop"
+                    placeholder="Search produce..."
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="search-button"
+                id="searchButton"
+            >
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- AVAILABLE LOTS -->
+
+        <section class="available-lots-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        AVAILABLE NOW
+                    </p>
+
+                    <h2>Produce lots</h2>
+
+                </div>
+
+                <span
+                    class="results-count"
+                    id="resultsCount"
+                >
+                    0 lots
+                </span>
+
+            </div>
+
+
+            <div
+                class="lots-grid"
+                id="buyerLotsContainer"
+            ></div>
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOT DETAIL / BID MODAL
+         ===================================================== -->
+
+    <div
+        class="modal"
+        id="lotModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+            <p class="section-label">
+                PRODUCE LOT
+            </p>
+
+            <h2 id="modalLotTitle">
+                Lot details
+            </h2>
+
+            <div
+                class="modal-details"
+                id="modalLotDetails"
+            ></div>
+
+
+            <div
+                class="buyer-bid-area"
+                id="buyerBidArea"
+            >
+
+                <h3>Make an offer</h3>
+
+                <div class="bid-input">
+
+                    <span>₹</span>
+
+                    <input
+                        type="number"
+                        id="bidPrice"
+                        min="1"
+                        step="0.01"
+                        placeholder="Your price per quintal"
+                    >
+
+                </div>
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="submitBidButton"
+                >
+                    Submit Offer
+                    <span>→</span>
+                </button>
+
+                <div
+                    class="form-message"
+                    id="bidMessage"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script src="js/lots.js"></script>
+
+</body>
+</html>

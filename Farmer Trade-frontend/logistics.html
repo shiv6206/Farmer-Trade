@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Farmer Trade | Logistics</title>
+
+    <link
+        rel="stylesheet"
+        href="css/logistics.css"
+    >
+</head>
+
+<body>
+
+<main class="logistics-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <span class="brand-mark">
+                <img src="logo.ico" alt="Farmer Trade logo" />
+            </span>
+
+            <span class="brand-text">
+
+                <strong>
+                    Farmer Trade
+                </strong>
+
+                <small>
+                    CONNECTING FARMERS TO OPPORTUNITY
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <nav
+            class="main-nav"
+            id="mainNav"
+        >
+
+            <a
+                href="dashboard.html"
+                id="dashboardLink"
+            >
+                Dashboard
+            </a>
+
+            <a href="lots.html">
+                <span id="lotsNavText">
+                    My Lots
+                </span>
+            </a>
+
+            <a href="bidding.html">
+                Bidding
+            </a>
+
+            <a
+                href="logistics.html"
+                class="active"
+            >
+                Logistics
+            </a>
+
+            <a href="transactions.html">
+                Transactions
+            </a>
+
+        </nav>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                <span></span>
+                ♧
+            </a>
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                <span id="profileInitial">
+                    U
+                </span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="hero">
+
+        <p
+            class="hero-label"
+            id="heroLabel"
+        >
+            LOGISTICS
+        </p>
+
+        <h1 id="heroTitle">
+            Move your
+            <span>produce.</span>
+        </h1>
+
+        <p
+            class="hero-description"
+            id="heroDescription"
+        >
+            Manage pickups, shipments and deliveries through
+            one connected logistics experience.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FARMER VIEW
+         ===================================================== -->
+
+    <section
+        class="role-view farmer-view"
+        id="farmerView"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="section-label">
+                    FARMER LOGISTICS
+                </p>
+
+                <h2>
+                    Manage your shipments
+                </h2>
+
+            </div>
+
+            <span class="role-badge">
+                Farmer
+            </span>
+
+        </div>
+
+
+        <!-- OVERVIEW -->
+
+        <div class="stats-grid">
+
+            <article class="stat-card">
+
+                <span>
+                    ACTIVE SHIPMENTS
+                </span>
+
+                <strong id="farmerActiveCount">
+                    0
+                </strong>
+
+                <p>
+                    Currently moving
+                </p>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>
+                    PICKUPS
+                </span>
+
+                <strong id="farmerPickupCount">
+                    0
+                </strong>
+
+                <p>
+                    Awaiting pickup
+                </p>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>
+                    DELIVERED
+                </span>
+
+                <strong id="farmerDeliveredCount">
+                    0
+                </strong>
+
+                <p>
+                    Successfully completed
+                </p>
+
+            </article>
+
+        </div>
+
+
+        <!-- REQUEST PICKUP -->
+
+        <section class="logistics-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        NEW REQUEST
+                    </p>
+
+                    <h3>
+                        Arrange a pickup
+                    </h3>
+
+                </div>
+
+                <span class="card-number">
+                    01
+                </span>
+
+            </div>
+
+
+            <form id="pickupForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="pickupLot">
+                            Produce Lot
+                        </label>
+
+                        <select
+                            id="pickupLot"
+                            required
+                        >
+
+                            <option value="">
+                                Select your lot
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pickupQuantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="pickupQuantity"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="e.g. 25"
+                            required
+                        >
+
+                        <small class="unit-label">
+                            Quintals
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="pickupDate">
+                            Preferred Pickup Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="pickupDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pickupAddress">
+                            Pickup Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pickupAddress"
+                            placeholder="Farm / pickup address"
+                            maxlength="250"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="pickupNotes">
+                        Additional Instructions
+                    </label>
+
+                    <textarea
+                        id="pickupNotes"
+                        rows="3"
+                        maxlength="500"
+                        placeholder="Add loading or handling instructions..."
+                    ></textarea>
+
+                </div>
+
+
+                <div
+                    class="form-message"
+                    id="pickupMessage"
+                    aria-live="polite"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Request Pickup
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- ACTIVE SHIPMENTS -->
+
+        <section class="shipments-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        CURRENT LOGISTICS
+                    </p>
+
+                    <h2>
+                        Your shipments
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="shipment-list"
+                id="farmerShipmentContainer"
+            ></div>
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         BUYER VIEW
+         ===================================================== -->
+
+    <section
+        class="role-view buyer-view"
+        id="buyerView"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="section-label">
+                    BUYER LOGISTICS
+                </p>
+
+                <h2>
+                    Track your deliveries
+                </h2>
+
+            </div>
+
+            <span class="role-badge">
+                Buyer
+            </span>
+
+        </div>
+
+
+        <!-- OVERVIEW -->
+
+        <div class="stats-grid">
+
+            <article class="stat-card">
+
+                <span>
+                    IN TRANSIT
+                </span>
+
+                <strong id="buyerTransitCount">
+                    0
+                </strong>
+
+                <p>
+                    Deliveries on the way
+                </p>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>
+                    EXPECTED
+                </span>
+
+                <strong id="buyerExpectedCount">
+                    0
+                </strong>
+
+                <p>
+                    Upcoming deliveries
+                </p>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>
+                    DELIVERED
+                </span>
+
+                <strong id="buyerDeliveredCount">
+                    0
+                </strong>
+
+                <p>
+                    Successfully received
+                </p>
+
+            </article>
+
+        </div>
+
+
+        <!-- TRACKING -->
+
+        <section class="tracking-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        DELIVERY TRACKING
+                    </p>
+
+                    <h3>
+                        Track a shipment
+                    </h3>
+
+                </div>
+
+                <span class="card-number">
+                    01
+                </span>
+
+            </div>
+
+
+            <div class="tracking-form">
+
+                <div class="form-group">
+
+                    <label for="trackingNumber">
+                        Shipment ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="trackingNumber"
+                        placeholder="e.g. KS-2026-001"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="trackButton"
+                >
+                    Track Shipment
+                    <span>→</span>
+                </button>
+
+            </div>
+
+
+            <div
+                class="form-message"
+                id="trackingMessage"
+                aria-live="polite"
+            ></div>
+
+        </section>
+
+
+        <!-- BUYER SHIPMENTS -->
+
+        <section class="shipments-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        YOUR DELIVERIES
+                    </p>
+
+                    <h2>
+                        Incoming shipments
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="shipment-list"
+                id="buyerShipmentContainer"
+            ></div>
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         SHIPMENT MODAL
+         ===================================================== -->
+
+    <div
+        class="modal"
+        id="shipmentModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+
+        <div
+            class="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalShipmentTitle"
+        >
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+
+            <p class="section-label">
+                SHIPMENT
+            </p>
+
+
+            <h2 id="modalShipmentTitle">
+                Shipment details
+            </h2>
+
+
+            <div
+                class="modal-details"
+                id="modalShipmentDetails"
+            ></div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="js/logistics.js"></script>
+
+</body>
+</html>

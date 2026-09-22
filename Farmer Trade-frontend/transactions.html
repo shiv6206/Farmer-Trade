@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions | Farmer Trade</title>
+
+    <link rel="stylesheet" href="css/transactions.css">
+</head>
+
+<body>
+
+<div class="transactions-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="brand">
+
+            <span class="brand-mark">
+                <img src="logo.ico" alt="Farmer Trade logo" />
+            </span>
+
+            <span class="brand-text">
+                <strong>Farmer Trade</strong>
+                <small>CONNECTING FARMERS TO OPPORTUNITY</small>
+            </span>
+
+        </a>
+
+
+        <!-- MARKETPLACE NAVIGATION -->
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <!-- Role-specific marketplace links are set by JS -->
+
+            <a href="#" id="marketplaceLinkOne">
+                Marketplace
+            </a>
+
+            <a href="#" id="marketplaceLinkTwo">
+                Bidding
+            </a>
+
+            <a href="#" id="marketplaceLinkThree">
+                Logistics
+            </a>
+
+            <a href="transactions.html" class="active">
+                Transactions
+            </a>
+
+        </nav>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <a
+                href="notifications.html"
+                class="notification-button"
+                aria-label="Notifications"
+            >
+                ♧
+                <span></span>
+            </a>
+
+            <a
+                href="profile.html"
+                class="profile-button"
+                aria-label="Profile"
+            >
+                <span id="profileInitial">F</span>
+            </a>
+
+        </div>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             INTRO
+             ================================================= -->
+
+        <section class="transactions-intro">
+
+            <p class="section-label" id="introLabel">
+                YOUR TRANSACTIONS
+            </p>
+
+            <h1 id="pageTitle">
+                Keep every deal<br>
+                <span>in one place.</span>
+            </h1>
+
+            <p id="pageDescription">
+                Track your produce purchases, agreed prices,
+                quantities and transaction progress through
+                Farmer Trade.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             SUMMARY
+             ================================================= -->
+
+        <section class="summary-section">
+
+            <div class="summary-card">
+
+                <span class="summary-label">
+                    TOTAL TRANSACTIONS
+                </span>
+
+                <strong id="totalTransactions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span class="summary-label">
+                    ACTIVE
+                </span>
+
+                <strong id="activeTransactions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span class="summary-label">
+                    COMPLETED
+                </span>
+
+                <strong id="completedTransactions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card highlight">
+
+                <span class="summary-label" id="valueLabel">
+                    TOTAL PURCHASE VALUE
+                </span>
+
+                <strong id="totalValue">
+                    ₹0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRANSACTIONS
+             ================================================= -->
+
+        <section class="transaction-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        TRANSACTION HISTORY
+                    </p>
+
+                    <h2 id="transactionHeading">
+                        Your purchases
+                    </h2>
+
+                </div>
+
+
+                <div class="filter-area">
+
+                    <label for="statusFilter">
+                        Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All transactions
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="confirmed">
+                            Confirmed
+                        </option>
+
+                        <option value="in-logistics">
+                            In Logistics
+                        </option>
+
+                        <option value="completed">
+                            Completed
+                        </option>
+
+                        <option value="cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="transaction-status-bar"
+                id="transactionStatusBar"
+            >
+
+                <span>
+                    Showing transactions
+                </span>
+
+                <span id="transactionCount">
+                    0 transactions
+                </span>
+
+            </div>
+
+
+            <div
+                class="transaction-list"
+                id="transactionList"
+            >
+
+                <!-- Transactions are generated by JavaScript -->
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div
+                class="empty-state"
+                id="emptyState"
+                hidden
+            >
+
+                <div class="empty-icon">
+                    —
+                </div>
+
+                <h3>
+                    No transactions found
+                </h3>
+
+                <p>
+                    Your transaction records will appear here
+                    once a deal is created.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRANSACTION INFORMATION
+             ================================================= -->
+
+        <section class="transaction-note">
+
+            <div>
+
+                <p class="section-label">
+                    Farmer Trade MARKETPLACE
+                </p>
+
+                <h2 id="noteHeading">
+                    From agreement to completion.
+                </h2>
+
+                <p id="noteDescription">
+                    Keep track of each transaction as your
+                    marketplace activity moves from agreement
+                    through logistics to completion.
+                </p>
+
+            </div>
+
+
+            <div class="transaction-flow">
+
+                <span>
+                    Agreement
+                </span>
+
+                <strong>→</strong>
+
+                <span>
+                    Logistics
+                </span>
+
+                <strong>→</strong>
+
+                <span>
+                    Completed
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     TRANSACTION DETAILS MODAL
+     ===================================================== -->
+
+<div
+    class="modal"
+    id="transactionModal"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-overlay"
+        id="modalOverlay"
+    ></div>
+
+
+    <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalCropName"
+    >
+
+        <button
+            type="button"
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close transaction"
+        >
+            ×
+        </button>
+
+
+        <p class="section-label">
+            TRANSACTION DETAILS
+        </p>
+
+
+        <h2 id="modalCropName">
+            Produce
+        </h2>
+
+
+        <div
+            class="modal-status"
+            id="modalStatus"
+        >
+            Confirmed
+        </div>
+
+
+        <div class="modal-value">
+
+            <span>
+                AGREED VALUE
+            </span>
+
+            <strong id="modalTotalValue">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="modal-details">
+
+            <div>
+
+                <span>
+                    LOT ID
+                </span>
+
+                <strong id="modalLotId">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span id="modalCounterpartyLabel">
+                    FARMER
+                </span>
+
+                <strong id="modalCounterparty">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    QUANTITY
+                </span>
+
+                <strong id="modalQuantity">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    PRICE / QUINTAL
+                </span>
+
+                <strong id="modalPrice">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    DATE
+                </span>
+
+                <strong id="modalDate">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    LOCATION
+                </span>
+
+                <strong id="modalLocation">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-timeline">
+
+            <div class="timeline-item" data-status="pending">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Transaction Created
+                    </strong>
+
+                    <small>
+                        Deal initiated
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item" data-status="confirmed">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Deal Confirmed
+                    </strong>
+
+                    <small>
+                        Both sides agreed
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item" data-status="in-logistics">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+
+                    <strong>
+                        In Logistics
+                    </strong>
+
+                    <small>
+                        Produce is being transported
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item" data-status="completed">
+
+                <span class="timeline-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Completed
+                    </strong>
+
+                    <small>
+                        Transaction completed
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="js/transactions.js"></script>
+
+</body>
+</html>
