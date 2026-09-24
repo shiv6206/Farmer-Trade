@@ -116,6 +116,9 @@ const stateDistricts = {
         "Bhagalpur",
         "Darbhanga",
         "Gaya",
+        "Gopalganj",
+        "lakhisarai",
+        "Barahiya",
         "Muzaffarpur",
         "Nalanda",
         "Patna",
@@ -417,15 +420,15 @@ const demoUsers = {
 
         role: "farmer",
 
-        name: "Rahul Patil",
+        name: "shiv shankar kumar",
 
-        phone: "9876543210",
+        phone: "6206352110",
 
-        email: "rahul@example.com",
+        email: "shivbhardwaj@gmail.com",
 
-        state: "Maharashtra",
+        state: "Bihar",
 
-        district: "Pune",
+        district: "Barahiya",
 
         memberSince: "2026",
 
@@ -455,15 +458,15 @@ const demoUsers = {
 
         role: "buyer",
 
-        name: "Arjun Mehta",
+        name: "Ashok kumar",
 
         phone: "9876543210",
 
-        email: "arjun@example.com",
+        email: "ashokkumar@gmail.com",
 
-        state: "Maharashtra",
+        state: "Bihar",
 
-        district: "Pune",
+        district: "Barahiya",
 
         memberSince: "2026",
 

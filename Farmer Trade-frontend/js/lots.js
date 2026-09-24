@@ -534,6 +534,54 @@ const createLotForm =
     document.getElementById("createLotForm");
 
 
+function syncUploadBoxState(inputId, fileName) {
+
+    const box =
+        document.querySelector(
+            `[data-upload-box="${inputId}"]`
+        );
+
+    const meta =
+        document.querySelector(
+            `[data-upload-meta="${inputId}"]`
+        );
+
+    if (!box || !meta) return;
+
+    if (fileName) {
+        box.classList.add("has-file");
+        meta.textContent = fileName;
+        return;
+    }
+
+    box.classList.remove("has-file");
+    meta.textContent = "No file selected";
+
+}
+
+
+document.querySelectorAll(
+    ".upload-area input[type='file']"
+).forEach(function (input) {
+
+    input.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                this.files && this.files[0];
+
+            syncUploadBoxState(
+                this.id,
+                file ? file.name : ""
+            );
+
+        }
+    );
+
+});
+
+
 if (createLotForm) {
 
     createLotForm.addEventListener(
@@ -590,6 +638,16 @@ if (createLotForm) {
                 document.getElementById(
                     "description"
                 ).value.trim();
+
+            const productPhotoFile =
+                document.getElementById(
+                    "productPhoto"
+                ).files[0];
+
+            const labResultFile =
+                document.getElementById(
+                    "labResultFile"
+                ).files[0];
 
             const message =
                 document.getElementById(
@@ -684,7 +742,17 @@ if (createLotForm) {
 
                 district,
 
-                description
+                description,
+
+                productPhotoName:
+                    productPhotoFile
+                        ? productPhotoFile.name
+                        : "",
+
+                labResultName:
+                    labResultFile
+                        ? labResultFile.name
+                        : ""
 
             };
 
@@ -765,6 +833,16 @@ if (createLotForm) {
                     "#53634d";
 
                 createLotForm.reset();
+
+                syncUploadBoxState(
+                    "productPhoto",
+                    ""
+                );
+
+                syncUploadBoxState(
+                    "labResultFile",
+                    ""
+                );
 
                 document.getElementById(
                     "crop"
@@ -1781,6 +1859,28 @@ async function openLotModal(
                     "No additional details."
                 )}
             </strong>
+        </div>
+
+        <div class="modal-file-list">
+
+            <div class="modal-file-item">
+                <span>Product Photo</span>
+                <strong>
+                    ${lot.productPhotoName
+                        ? escapeHtml(lot.productPhotoName)
+                        : "Not uploaded"}
+                </strong>
+            </div>
+
+            <div class="modal-file-item">
+                <span>Lab Result</span>
+                <strong>
+                    ${lot.labResultName
+                        ? escapeHtml(lot.labResultName)
+                        : "Not uploaded"}
+                </strong>
+            </div>
+
         </div>
 
     `;

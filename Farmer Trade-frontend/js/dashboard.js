@@ -1114,13 +1114,13 @@ districtSelect.addEventListener(
    ========================================================= */
 
 stateSelect.value =
-    "Maharashtra";
+    "Bihar";
 
 loadDistricts(
-    "Maharashtra"
+    "Bihar"
 );
 
 districtSelect.value =
-    "Pune";
+    "Lakhisarai";
 
 updateRegion();
