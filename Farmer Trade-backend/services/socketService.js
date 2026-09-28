@@ -43,7 +43,7 @@ const initSocket = (httpServer, allowedOrigins) => {
 
     // Join a bidding room for a specific bulk lot
     socket.on("join_lot_room", async (data = {}) => {
-      const { bulkLotId } = data;
+      const bulkLotId = data?.bulkLotId;
       const { id: userId, name: userName, role } = socket.data.user;
 
       if (typeof bulkLotId !== "string" || !bulkLotId) {
@@ -88,7 +88,8 @@ const initSocket = (httpServer, allowedOrigins) => {
 
     // Place a bid
     socket.on("place_bid", async (data = {}) => {
-      const { bulkLotId, bidAmount } = data;
+      const bulkLotId = data?.bulkLotId;
+      const bidAmount = data?.bidAmount;
       const { id: buyerId, name: buyerName, role } = socket.data.user;
 
       if (role !== "BUYER" || bulkLotId !== socket.data.joinedLotId) {
@@ -97,6 +98,9 @@ const initSocket = (httpServer, allowedOrigins) => {
       if (!Number.isFinite(bidAmount) || bidAmount <= 0) {
         return socket.emit("error", { message: "bidAmount must be a positive number" });
       }
+      if (Date.now() - (socket.data.lastBidAt || 0) < 1000) {
+        return socket.emit("error", { message: "Please wait before placing another bid" });
+      }
 
       try {
         const lotResult = await tursoClient.execute({
@@ -104,9 +108,12 @@ const initSocket = (httpServer, allowedOrigins) => {
           args: [bulkLotId],
         });
         const lot = lotResult.rows[0];
-        if (!lot || lot.status !== "OPEN_FOR_BIDS" || bidAmount < lot.reserve_price) {
-          return socket.emit("error", { message: "Bid is below reserve or lot is closed" });
+        const topBid = await BidLog.findOne({ bulkLotId }).sort({ bidAmount: -1 });
+        const minimumBid = Math.max(lot?.reserve_price || 0, topBid?.bidAmount || 0);
+        if (!lot || lot.status !== "OPEN_FOR_BIDS" || bidAmount <= minimumBid) {
+          return socket.emit("error", { message: "Bid must exceed the current price and the lot reserve" });
         }
+        socket.data.lastBidAt = Date.now();
 
         // Save bid to MongoDB
         const bidLog = new BidLog({

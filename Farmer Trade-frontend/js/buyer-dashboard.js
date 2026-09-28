@@ -21,7 +21,8 @@
    const API_BASE_URL = "https://your-domain.com/api";
 */
 
-const API_BASE_URL = "/api";
+const isLocalDevelopment = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const API_BASE_URL = window.FARMER_TRADE_API_BASE_URL || (isLocalDevelopment ? "http://localhost:5000/api" : "/api");
 
 
 /*
@@ -32,7 +33,7 @@ const API_BASE_URL = "/api";
    Set to false when the backend is ready.
 */
 
-const DEMO_MODE = true;
+const DEMO_MODE = isLocalDevelopment;
 
 
 /* =========================================================

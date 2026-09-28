@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: [".env.local", ".env"] });
 
 const connectMongo = async () => {
   const mongoUri = process.env.MONGO_URI?.trim();

@@ -70,6 +70,15 @@ const validateProductionConfig = () => {
   if (!process.env.MONGO_URI) {
     throw new Error("Production requires MONGO_URI for persistent bid history");
   }
+  try {
+    if (!new URL(process.env.MONGO_URI).pathname.replace(/^\//, "")) {
+      throw new Error("Production MONGO_URI must include a database name");
+    }
+  } catch (error) {
+    throw new Error(error.message.includes("database name")
+      ? error.message
+      : "Production MONGO_URI must be a valid MongoDB connection URI");
+  }
   if (process.env.OTP_DEV_MODE === "true") {
     throw new Error("OTP_DEV_MODE must be disabled in production");
   }

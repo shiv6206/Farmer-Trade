@@ -125,30 +125,29 @@ cp .env.example .env   # (if .env.example exists)
 # OR create .env manually with the variables below
 ```
 
-### 3. Configure Environment Variables (Optional for Hackathon)
+### 3. Configure Environment Variables
 
-The backend is configured to fall back to a local SQLite database (`local.db`) and a default dummy JWT secret if no `.env` file is present. This ensures the prototype runs out-of-the-box. 
+Copy `.env.example` to `.env` for local development. It uses `local.db` for application data and a local MongoDB instance for bid history. The local OTP mode returns the development code in the API response; it must never be enabled in production.
 
-If you want to use cloud databases, create `Farmer Trade-backend/.env`:
+For MongoDB Atlas credentials, put `MONGO_URI` in `Farmer Trade-backend/.env.local`; the backend loads it before `.env`, and Git ignores that file. Include the intended database name in the URI path.
 
 ```env
 PORT=5000
 NODE_ENV=development
-
-# Turso Database
-TURSO_DATABASE_URL="libsql://your-db-name.turso.io"
-TURSO_AUTH_TOKEN="your-turso-auth-token"
-
-# JWT
-JWT_SECRET="your-super-secret-jwt-key-change-this"
+FRONTEND_URL=http://localhost:5510
+OTP_DEV_MODE=true
+TURSO_DATABASE_URL=file:./local.db
+MONGO_URI=mongodb://127.0.0.1:27017/farmer_trade
 ```
+
+For production, configure a unique `JWT_SECRET` of at least 32 characters, a remote Turso/libSQL database and auth token, a MongoDB URI with an explicit database name, exact `FRONTEND_URL` origins, and an SMS provider. Production startup rejects local SQLite and unsafe or missing JWT configuration. OTP endpoints remain unavailable until SMS delivery is implemented; simulated payments are disabled in production.
 
 ### 4. Start the Backend (Terminal 1)
 
 ```bash
 cd Farmer Trade-backend
 
-# Seed Demo Data (Creates local.db and populates it)
+# Optional: seed local demo data
 node scripts/seedDemoData.js
 
 # Start the server (auto-reload on file changes)
@@ -168,7 +167,7 @@ cd Farmer Trade-frontend
 npx serve .
 ```
 
-Open the URL provided by `serve` (usually `http://localhost:3000`) in your browser to interact with the prototype.
+Open the URL provided by `serve` in your browser. Configure `FRONTEND_URL` to exactly match that origin. Several frontend screens still contain prototype/demo flows and need their API contracts completed before production use.
 
 ---
 

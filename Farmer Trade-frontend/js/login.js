@@ -64,6 +64,9 @@ const formMessage =
 const forgotPassword =
     document.getElementById("forgotPassword");
 
+const isLocalDevelopment = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const API_BASE_URL = window.FARMER_TRADE_API_BASE_URL || (isLocalDevelopment ? "http://localhost:5000/api" : "/api");
+
 /* =========================================================
    MOBILE NUMBER
    ========================================================= */
@@ -213,7 +216,7 @@ forgotPassword.addEventListener(
         formMessage.style.color = "blue";
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/send-otp", {
+            const response = await fetch(`${API_BASE_URL}/auth/send-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone: mobile })
@@ -260,7 +263,7 @@ loginForm.addEventListener(
         formMessage.style.color = "blue";
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/verify-otp", {
+            const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

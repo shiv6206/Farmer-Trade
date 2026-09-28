@@ -7,7 +7,7 @@ const developmentJwtSecret = randomBytes(48).toString("base64url");
 
 const getJwtSecret = () => {
   const secret = process.env.JWT_SECRET;
-  if (secret && secret.length >= 32 && !/replace-with|hackathon/i.test(secret)) {
+  if (secret && secret.length >= 32 && !/replace-with|hackathon|placeholder|change-me|generate/i.test(secret)) {
     return secret;
   }
   if (process.env.NODE_ENV === "production") {
