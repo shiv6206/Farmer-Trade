@@ -4,13 +4,13 @@ import { initiatePayment, holdEscrow, releasePayment, getPaymentStatus } from ".
 // @route   POST /api/payments/mock-pay
 const mockPayHandler = async (req, res) => {
   try {
-    const { transactionId, amount } = req.body;
+    const { transactionId } = req.body;
 
-    if (!transactionId || !amount) {
-      return res.status(400).json({ message: "transactionId and amount are required" });
+    if (!transactionId) {
+      return res.status(400).json({ message: "transactionId is required" });
     }
 
-    const result = await initiatePayment(transactionId, amount);
+    const result = await initiatePayment(transactionId, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -18,7 +18,7 @@ const mockPayHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Mock pay error:", error);
-    res.status(500).json({ message: error.message || "Payment initiation failed" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Payment initiation failed" });
   }
 };
 
@@ -32,7 +32,7 @@ const holdEscrowHandler = async (req, res) => {
       return res.status(400).json({ message: "transactionId is required" });
     }
 
-    const result = await holdEscrow(transactionId);
+    const result = await holdEscrow(transactionId, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -40,7 +40,7 @@ const holdEscrowHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Hold escrow error:", error);
-    res.status(500).json({ message: error.message || "Failed to hold escrow" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to hold escrow" });
   }
 };
 
@@ -54,7 +54,7 @@ const releasePaymentHandler = async (req, res) => {
       return res.status(400).json({ message: "transactionId is required" });
     }
 
-    const result = await releasePayment(transactionId);
+    const result = await releasePayment(transactionId, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -62,7 +62,7 @@ const releasePaymentHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Release payment error:", error);
-    res.status(500).json({ message: error.message || "Failed to release payment" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to release payment" });
   }
 };
 
@@ -72,7 +72,7 @@ const getStatusHandler = async (req, res) => {
   try {
     const { transactionId } = req.params;
 
-    const result = await getPaymentStatus(transactionId);
+    const result = await getPaymentStatus(transactionId, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -80,7 +80,7 @@ const getStatusHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Get payment status error:", error);
-    res.status(500).json({ message: error.message || "Failed to get payment status" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to get payment status" });
   }
 };
 

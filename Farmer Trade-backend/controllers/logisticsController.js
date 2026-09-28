@@ -10,7 +10,7 @@ const assignTransporterHandler = async (req, res) => {
       return res.status(400).json({ message: "transactionId and transporterId are required" });
     }
 
-    const result = await assignTransporter(transactionId, transporterId, pickupTime);
+    const result = await assignTransporter(transactionId, transporterId, pickupTime, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -18,7 +18,7 @@ const assignTransporterHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Assign transporter error:", error);
-    res.status(500).json({ message: error.message || "Failed to assign transporter" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to assign transporter" });
   }
 };
 
@@ -37,7 +37,7 @@ const updateStatusHandler = async (req, res) => {
       return res.status(400).json({ message: `Invalid status. Must be: ${validStatuses.join(", ")}` });
     }
 
-    const result = await updateDeliveryStatus(transactionId, status);
+    const result = await updateDeliveryStatus(transactionId, status, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -45,7 +45,7 @@ const updateStatusHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Update status error:", error);
-    res.status(500).json({ message: error.message || "Failed to update status" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to update status" });
   }
 };
 
@@ -55,7 +55,7 @@ const getStatusHandler = async (req, res) => {
   try {
     const { transactionId } = req.params;
 
-    const result = await getDeliveryStatus(transactionId);
+    const result = await getDeliveryStatus(transactionId, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -63,7 +63,7 @@ const getStatusHandler = async (req, res) => {
     });
   } catch (error) {
     console.error("Get status error:", error);
-    res.status(500).json({ message: error.message || "Failed to get delivery status" });
+    res.status(error.statusCode || 500).json({ message: error.message || "Failed to get delivery status" });
   }
 };
 

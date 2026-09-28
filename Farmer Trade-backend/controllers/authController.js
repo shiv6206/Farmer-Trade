@@ -1,5 +1,5 @@
 import { generateOTP, storeOTP, verifyOTP } from "../services/otpService.js";
-import { createOrUpdateUser, generateToken, getUserById } from "../services/authService.js";
+import { createOrUpdateUser, findUserByPhone, generateToken, getUserById } from "../services/authService.js";
 
 // @desc    Send OTP to phone number
 // @route   POST /api/auth/send-otp
@@ -16,18 +16,17 @@ const sendOTP = async (req, res) => {
       return res.status(400).json({ message: "Invalid Indian phone number" });
     }
 
+    if (process.env.NODE_ENV === "production" || process.env.OTP_DEV_MODE !== "true") {
+      return res.status(503).json({ message: "OTP delivery is not configured" });
+    }
+
     const otp = generateOTP();
     await storeOTP(phone, otp);
 
-    // In production, send OTP via SMS (Twilio, MSG91, etc.)
-    // For hackathon demo, log the OTP
-    console.log(`OTP for ${phone}: ${otp}`);
-
     res.status(200).json({
       success: true,
-      message: "OTP sent successfully",
-      // Include OTP in response for hackathon demo only
-      otp: otp,
+      message: "Development OTP generated",
+      otp,
     });
   } catch (error) {
     console.error("Send OTP error:", error);
@@ -51,17 +50,16 @@ const verifyOTPHandler = async (req, res) => {
       return res.status(400).json({ message: otpResult.message });
     }
 
-    // For new users, name, role, and district are required
-    if (!name || !role || !district) {
+    const existingUser = await findUserByPhone(phone);
+
+    if (!existingUser && (!name || !role || !district)) {
       return res.status(400).json({
         message: "Name, role, and district are required for registration",
       });
     }
 
-    // Validate role
-    const validRoles = ["FARMER", "FPO", "BUYER", "TRANSPORTER"];
-    if (!validRoles.includes(role)) {
-      return res.status(400).json({ message: `Invalid role. Must be one of: ${validRoles.join(", ")}` });
+    if (!existingUser && !["FARMER", "BUYER"].includes(role)) {
+      return res.status(400).json({ message: "New accounts can register only as FARMER or BUYER" });
     }
 
     // Create or update user

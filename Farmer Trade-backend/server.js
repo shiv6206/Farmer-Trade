@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import { createServer } from "http";
-import { Server } from "socket.io";
+import { rateLimit } from "express-rate-limit";
 import connectMongo from "./config/mongo.js";
 import { initializeSchema } from "./config/turso.js";
 
@@ -24,23 +24,22 @@ dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
+const frontendOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: frontendOrigins }));
 app.use(helmet());
-app.use(express.json());
-
-// Socket.io
-const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "*",
-    methods: ["GET", "POST"]
-  }
-});
+app.use(express.json({ limit: "1mb" }));
 
 // Basic Route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Farmer Trade Backend API" });
+});
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
 // API Routes
@@ -58,22 +57,37 @@ app.use("/api/grievance", grievanceRoutes);
 // Start Server & Connect Databases
 const PORT = process.env.PORT || 5000;
 
+const validateProductionConfig = () => {
+  if (process.env.NODE_ENV !== "production") return;
+
+  const jwtSecret = process.env.JWT_SECRET || "";
+  if (jwtSecret.length < 32 || /replace-with|hackathon/i.test(jwtSecret)) {
+    throw new Error("Production requires a unique JWT_SECRET of at least 32 characters");
+  }
+  if (!process.env.FRONTEND_URL || frontendOrigins.includes("*")) {
+    throw new Error("Production requires explicit FRONTEND_URL origins");
+  }
+  if (!process.env.MONGO_URI) {
+    throw new Error("Production requires MONGO_URI for persistent bid history");
+  }
+  if (process.env.OTP_DEV_MODE === "true") {
+    throw new Error("OTP_DEV_MODE must be disabled in production");
+  }
+};
+
 const startServer = async () => {
-  // Connect databases - continue even if one fails
+  validateProductionConfig();
+
   try {
     await connectMongo();
   } catch (error) {
+    if (process.env.NODE_ENV === "production") throw error;
     console.error("MongoDB connection failed (continuing without it):", error.message);
   }
 
-  try {
-    await initializeSchema();
-  } catch (error) {
-    console.error("Turso schema init failed (continuing without it):", error.message);
-  }
+  await initializeSchema();
 
-  // Initialize Socket.io
-  initSocket(httpServer);
+  initSocket(httpServer, frontendOrigins);
 
   httpServer.listen(PORT, () => {
     console.log(`\n🚀 Farmer Trade Backend running on http://localhost:${PORT}`);
@@ -101,4 +115,7 @@ const startServer = async () => {
   });
 };
 
-startServer();
+startServer().catch((error) => {
+  console.error("Backend startup failed:", error.message);
+  process.exit(1);
+});

@@ -8,9 +8,14 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const databaseUrl = process.env.TURSO_DATABASE_URL || "file:./local.db";
+
+if (process.env.NODE_ENV === "production" && databaseUrl.startsWith("file:")) {
+  throw new Error("Production requires a remote Turso/libSQL database; local SQLite is not durable deployment storage");
+}
 
 const tursoClient = createClient({
-  url: process.env.TURSO_DATABASE_URL || "file:./local.db",
+  url: databaseUrl,
   authToken: process.env.TURSO_AUTH_TOKEN,
 });
 

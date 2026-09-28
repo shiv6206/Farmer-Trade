@@ -1,17 +1,31 @@
 import jwt from "jsonwebtoken";
 import tursoClient from "../config/turso.js";
 import { v4 as uuidv4 } from "uuid";
+import { randomBytes } from "node:crypto";
+
+const developmentJwtSecret = randomBytes(48).toString("base64url");
+
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET;
+  if (secret && secret.length >= 32 && !/replace-with|hackathon/i.test(secret)) {
+    return secret;
+  }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("JWT_SECRET must be a strong, unique secret of at least 32 characters");
+  }
+  return developmentJwtSecret;
+};
 
 const generateToken = (userId, role) => {
   return jwt.sign(
     { id: userId, role },
-    process.env.JWT_SECRET || "hackathon_secret_key",
+    getJwtSecret(),
     { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
   );
 };
 
 const verifyToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET || "hackathon_secret_key");
+  return jwt.verify(token, getJwtSecret());
 };
 
 const findUserByPhone = async (phone) => {
@@ -26,12 +40,7 @@ const createOrUpdateUser = async ({ phone, name, role, district }) => {
   const existing = await findUserByPhone(phone);
 
   if (existing) {
-    // Update existing user
-    await tursoClient.execute({
-      sql: "UPDATE users SET name = ?, role = ?, district = ? WHERE phone = ?",
-      args: [name, role, district, phone],
-    });
-    return { id: existing.id, name, role, district, phone };
+    return existing;
   }
 
   // Create new user

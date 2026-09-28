@@ -23,42 +23,61 @@ const PAYMENT_STATE_MACHINE = {
 /**
  * Initiate a mock payment
  */
-const initiatePayment = async (transactionId, amount) => {
-  // Validate transaction
+const getTransaction = async (transactionId) => {
   const txResult = await tursoClient.execute({
-    sql: "SELECT * FROM transactions WHERE id = ?",
+    sql: `SELECT t.*, fbl.fpo_id
+          FROM transactions t
+          LEFT JOIN fpo_bulk_lots fbl ON t.bulk_lot_id = fbl.id
+          WHERE t.id = ?`,
     args: [transactionId],
   });
 
-  if (txResult.rows.length === 0) {
-    throw new Error("Transaction not found");
-  }
+  if (!txResult.rows.length) throw Object.assign(new Error("Transaction not found"), { statusCode: 404 });
+  return txResult.rows[0];
+};
 
-  const tx = txResult.rows[0];
+const requireFpoOwner = (tx, userId) => {
+  if (tx.fpo_id !== userId) throw Object.assign(new Error("Access denied"), { statusCode: 403 });
+};
+
+const requireParticipant = (tx, userId) => {
+  if (![tx.buyer_id, tx.transporter_id, tx.fpo_id].includes(userId)) {
+    throw Object.assign(new Error("Access denied"), { statusCode: 403 });
+  }
+};
+
+const updatePaymentStatus = async (transactionId, currentStatus, nextStatus) => {
+  const result = await tursoClient.execute({
+    sql: "UPDATE transactions SET payment_status = ? WHERE id = ? AND payment_status = ?",
+    args: [nextStatus, transactionId, currentStatus],
+  });
+  if (!result.rowsAffected) throw Object.assign(new Error("Payment status changed; reload and retry"), { statusCode: 409 });
+};
+
+const initiatePayment = async (transactionId, buyerId) => {
+  const tx = await getTransaction(transactionId);
+  if (tx.buyer_id !== buyerId) throw Object.assign(new Error("Access denied"), { statusCode: 403 });
 
   if (tx.payment_status !== "PENDING") {
-    throw new Error(`Cannot initiate payment. Current status: ${tx.payment_status}`);
+    throw Object.assign(new Error(`Cannot initiate payment. Current status: ${tx.payment_status}`), { statusCode: 409 });
   }
 
   // Generate mock Razorpay order ID
   const razorpayOrderId = `order_${uuidv4().slice(0, 14)}`;
 
   // Update transaction to INITIATED
-  await tursoClient.execute({
-    sql: "UPDATE transactions SET payment_status = 'INITIATED' WHERE id = ?",
-    args: [transactionId],
-  });
+  await updatePaymentStatus(transactionId, "PENDING", "INITIATED");
 
   return {
     transactionId,
     razorpayOrderId,
-    amount,
+    amount: tx.gross_amount,
     status: "INITIATED",
     message: "Payment initiated. Awaiting escrow hold.",
     // Mock Razorpay response
     razorpay: {
       order_id: razorpayOrderId,
-      amount: amount * 100, // Razorpay uses paise
+      amount: tx.gross_amount * 100, // Razorpay uses paise
       currency: "INR",
       status: "created",
     },
@@ -68,26 +87,15 @@ const initiatePayment = async (transactionId, amount) => {
 /**
  * Hold payment in escrow (simulates Razorpay capture)
  */
-const holdEscrow = async (transactionId) => {
-  const txResult = await tursoClient.execute({
-    sql: "SELECT * FROM transactions WHERE id = ?",
-    args: [transactionId],
-  });
-
-  if (txResult.rows.length === 0) {
-    throw new Error("Transaction not found");
-  }
-
-  const tx = txResult.rows[0];
+const holdEscrow = async (transactionId, fpoId) => {
+  const tx = await getTransaction(transactionId);
+  requireFpoOwner(tx, fpoId);
 
   if (tx.payment_status !== "INITIATED") {
-    throw new Error(`Cannot hold escrow. Current status: ${tx.payment_status}`);
+    throw Object.assign(new Error(`Cannot hold escrow. Current status: ${tx.payment_status}`), { statusCode: 409 });
   }
 
-  await tursoClient.execute({
-    sql: "UPDATE transactions SET payment_status = 'ESCROW_HELD' WHERE id = ?",
-    args: [transactionId],
-  });
+  await updatePaymentStatus(transactionId, "INITIATED", "ESCROW_HELD");
 
   return {
     transactionId,
@@ -101,20 +109,15 @@ const holdEscrow = async (transactionId) => {
  * Release payment (mark as PAID)
  * Splits: logistics_cost to transporter, handling_cost to FPO, rest to farmers
  */
-const releasePayment = async (transactionId) => {
-  const txResult = await tursoClient.execute({
-    sql: "SELECT * FROM transactions WHERE id = ?",
-    args: [transactionId],
-  });
-
-  if (txResult.rows.length === 0) {
-    throw new Error("Transaction not found");
-  }
-
-  const tx = txResult.rows[0];
+const releasePayment = async (transactionId, fpoId) => {
+  const tx = await getTransaction(transactionId);
+  requireFpoOwner(tx, fpoId);
 
   if (tx.payment_status !== "ESCROW_HELD") {
-    throw new Error(`Cannot release payment. Current status: ${tx.payment_status}`);
+    throw Object.assign(new Error(`Cannot release payment. Current status: ${tx.payment_status}`), { statusCode: 409 });
+  }
+  if (tx.delivery_status !== "DELIVERED") {
+    throw Object.assign(new Error("Payment cannot be released before delivery is confirmed"), { statusCode: 409 });
   }
 
   // Calculate split
@@ -125,10 +128,7 @@ const releasePayment = async (transactionId) => {
   const farmerShare = grossAmount - logisticsCost - handlingCost;
 
   // Update to PAID
-  await tursoClient.execute({
-    sql: "UPDATE transactions SET payment_status = 'PAID' WHERE id = ?",
-    args: [transactionId],
-  });
+  await updatePaymentStatus(transactionId, "ESCROW_HELD", "PAID");
 
   return {
     transactionId,
@@ -148,17 +148,9 @@ const releasePayment = async (transactionId) => {
 /**
  * Get payment status
  */
-const getPaymentStatus = async (transactionId) => {
-  const result = await tursoClient.execute({
-    sql: "SELECT * FROM transactions WHERE id = ?",
-    args: [transactionId],
-  });
-
-  if (result.rows.length === 0) {
-    throw new Error("Transaction not found");
-  }
-
-  const tx = result.rows[0];
+const getPaymentStatus = async (transactionId, userId) => {
+  const tx = await getTransaction(transactionId);
+  requireParticipant(tx, userId);
 
   return {
     transactionId: tx.id,

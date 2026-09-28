@@ -64,30 +64,6 @@ const formMessage =
 const forgotPassword =
     document.getElementById("forgotPassword");
 
-const DEMO_OTP = "123456";
-
-function applyDemoAuth(role, mobile) {
-
-    const normalizedRole =
-        String(role || "farmer")
-            .trim()
-            .toLowerCase();
-
-    localStorage.setItem("token", "demo-token");
-    sessionStorage.setItem("Farmer TradeUserRole", normalizedRole);
-    sessionStorage.setItem("Farmer TradeLoggedIn", "true");
-    sessionStorage.setItem("Farmer TradeLoginMobile", mobile);
-    sessionStorage.setItem("Farmer TradeSignupRole", normalizedRole);
-
-    window.location.replace(
-        normalizedRole === "farmer"
-            ? "dashboard.html"
-            : "buyer-dashboard.html"
-    );
-
-}
-
-
 /* =========================================================
    MOBILE NUMBER
    ========================================================= */
@@ -245,20 +221,20 @@ forgotPassword.addEventListener(
             const data = await response.json();
 
             if (response.ok) {
-                formMessage.textContent = "OTP Sent! Demo OTP: " + (data.otp || DEMO_OTP);
+                formMessage.textContent = data.otp
+                    ? "Development OTP: " + data.otp
+                    : "OTP sent. Check your phone.";
                 formMessage.style.color = "green";
-                passwordInput.value = data.otp || DEMO_OTP;
+                if (data.otp) passwordInput.value = data.otp;
                 return;
             }
 
-            formMessage.textContent = data.message || "OTP not available right now. Using demo OTP.";
-            formMessage.style.color = "green";
-            passwordInput.value = DEMO_OTP;
+            formMessage.textContent = data.message || "Unable to send OTP.";
+            formMessage.style.color = "red";
 
         } catch (err) {
-            formMessage.textContent = "Server unavailable. Using demo OTP: " + DEMO_OTP;
-            formMessage.style.color = "green";
-            passwordInput.value = DEMO_OTP;
+            formMessage.textContent = "Server unavailable. Please try again later.";
+            formMessage.style.color = "red";
         }
     }
 );
@@ -297,8 +273,8 @@ loginForm.addEventListener(
             });
             const data = await response.json();
 
-            if (response.ok && data && data.user && data.user.role) {
-                localStorage.setItem("token", data.token || "demo-token");
+            if (response.ok && data?.token && data?.user?.role) {
+                localStorage.setItem("token", data.token);
                 sessionStorage.setItem("Farmer TradeUserRole", String(data.user.role).toLowerCase());
                 sessionStorage.setItem("Farmer TradeLoggedIn", "true");
                 sessionStorage.setItem("Farmer TradeLoginMobile", mobile);
@@ -312,21 +288,11 @@ loginForm.addEventListener(
                 return;
             }
 
-            if (otp === DEMO_OTP) {
-                applyDemoAuth(selectedRole, mobile);
-                return;
-            }
-
             formMessage.textContent = data.message || "Invalid OTP.";
             formMessage.style.color = "red";
 
         } catch (err) {
-            if (otp === DEMO_OTP || otp.length >= 4) {
-                applyDemoAuth(selectedRole, mobile);
-                return;
-            }
-
-            formMessage.textContent = "Server unavailable. Please use the demo OTP.";
+            formMessage.textContent = "Server unavailable. Please try again later.";
             formMessage.style.color = "red";
         }
     }

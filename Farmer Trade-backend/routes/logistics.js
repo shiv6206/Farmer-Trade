@@ -7,7 +7,7 @@ const router = Router();
 
 // @route   POST /api/logistics/assign
 // @desc    Assign transporter to transaction (FPO or TRANSPORTER only)
-router.post("/assign", auth, roleCheck("FPO", "TRANSPORTER"), assignTransporterHandler);
+router.post("/assign", auth, roleCheck("FPO"), assignTransporterHandler);
 
 // @route   PATCH /api/logistics/status
 // @desc    Update delivery status (TRANSPORTER only)

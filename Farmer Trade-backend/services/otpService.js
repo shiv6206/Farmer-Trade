@@ -1,9 +1,10 @@
 import tursoClient from "../config/turso.js";
+import { randomInt } from "node:crypto";
 
 const OTP_EXPIRY_MINUTES = 5; // 5 minutes
 
 const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return randomInt(100000, 1000000).toString();
 };
 
 const storeOTP = async (phone, otp) => {

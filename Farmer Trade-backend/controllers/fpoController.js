@@ -7,7 +7,7 @@ const getAvailableLots = async (req, res) => {
   try {
     const { district, commodity } = req.query;
 
-    let sql = `SELECT fl.*, u.name as farmer_name, u.phone as farmer_phone 
+    let sql = `SELECT fl.*, u.name as farmer_name 
                FROM farmer_lots fl 
                JOIN users u ON fl.farmer_id = u.id 
                WHERE fl.status = 'LISTED'`;
@@ -44,14 +44,17 @@ const aggregateLots = async (req, res) => {
   try {
     const { farmerLotIds, reservePrice, pickupLocation, qualityGrade } = req.body;
 
-    if (!farmerLotIds || farmerLotIds.length === 0) {
+    if (!Array.isArray(farmerLotIds) || farmerLotIds.length === 0 || farmerLotIds.length > 100) {
       return res.status(400).json({ message: "farmerLotIds array is required" });
     }
 
-    if (!reservePrice || !pickupLocation || !qualityGrade) {
+    if (!Number.isFinite(reservePrice) || reservePrice <= 0 || !pickupLocation?.trim() || !qualityGrade) {
       return res.status(400).json({
         message: "reservePrice, pickupLocation, and qualityGrade are required",
       });
+    }
+    if (!["Grade-A", "Grade-B", "Grade-C"].includes(qualityGrade)) {
+      return res.status(400).json({ message: "Invalid quality grade" });
     }
 
     // Fetch all farmer lots to validate they exist and are LISTED
@@ -72,6 +75,9 @@ const aggregateLots = async (req, res) => {
     // All lots must be the same commodity and variety
     const commodity = lots[0].commodity;
     const variety = lots[0].variety;
+    if (lots.some((lot) => lot.commodity !== commodity || lot.variety !== variety)) {
+      return res.status(400).json({ message: "All selected lots must have the same commodity and variety" });
+    }
 
     const totalQuantity = lots.reduce((sum, lot) => sum + lot.quantity_quintals, 0);
 

@@ -20,10 +20,17 @@ const createGrievance = async (req, res) => {
       });
     }
 
-    // Validate transaction exists
+    // Verify the caller is a participant in this transaction.
     const txResult = await tursoClient.execute({
-      sql: "SELECT * FROM transactions WHERE id = ?",
-      args: [transactionId],
+      sql: `SELECT t.id
+            FROM transactions t
+            LEFT JOIN fpo_bulk_lots fbl ON t.bulk_lot_id = fbl.id
+            LEFT JOIN fpo_lot_mappings flm ON flm.bulk_lot_id = fbl.id
+            LEFT JOIN farmer_lots fl ON fl.id = flm.farmer_lot_id
+            WHERE t.id = ?
+              AND (t.buyer_id = ? OR t.transporter_id = ? OR fbl.fpo_id = ? OR fl.farmer_id = ?)
+            LIMIT 1`,
+      args: [transactionId, req.user.id, req.user.id, req.user.id, req.user.id],
     });
 
     if (txResult.rows.length === 0) {
@@ -65,10 +72,15 @@ const getGrievances = async (req, res) => {
     const result = await tursoClient.execute({
       sql: `SELECT g.*, u.name as raised_by_name 
             FROM grievances g 
+            JOIN transactions t ON t.id = g.transaction_id
+            LEFT JOIN fpo_bulk_lots fbl ON fbl.id = t.bulk_lot_id
+            LEFT JOIN fpo_lot_mappings flm ON flm.bulk_lot_id = fbl.id
+            LEFT JOIN farmer_lots fl ON fl.id = flm.farmer_lot_id
             JOIN users u ON g.raised_by = u.id 
             WHERE g.transaction_id = ?
+              AND (t.buyer_id = ? OR t.transporter_id = ? OR fbl.fpo_id = ? OR fl.farmer_id = ?)
             ORDER BY g.created_at DESC`,
-      args: [transactionId],
+      args: [transactionId, req.user.id, req.user.id, req.user.id, req.user.id],
     });
 
     res.status(200).json({
