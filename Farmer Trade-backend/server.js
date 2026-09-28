@@ -24,7 +24,7 @@ dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
-const frontendOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
+const frontendOrigins = (process.env.FRONTEND_URL || "https://farmer-trade-hld9.vercel.app")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
