@@ -48,6 +48,20 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+let vercelInitializationPromise;
+if (process.env.VERCEL) {
+  app.use("/api", async (_req, _res, next) => {
+    try {
+      vercelInitializationPromise ??= initializeDatabases();
+      await vercelInitializationPromise;
+      next();
+    } catch (error) {
+      vercelInitializationPromise = undefined;
+      next(error);
+    }
+  });
+}
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/farmer", farmerRoutes);
@@ -90,7 +104,7 @@ const validateProductionConfig = () => {
   }
 };
 
-const startServer = async () => {
+const initializeDatabases = async () => {
   validateProductionConfig();
 
   try {
@@ -101,7 +115,10 @@ const startServer = async () => {
   }
 
   await initializeSchema();
+};
 
+const startServer = async () => {
+  await initializeDatabases();
   initSocket(httpServer, frontendOrigins);
 
   httpServer.listen(PORT, () => {
@@ -130,7 +147,11 @@ const startServer = async () => {
   });
 };
 
-startServer().catch((error) => {
-  console.error("Backend startup failed:", error.message);
-  process.exit(1);
-});
+export default app;
+
+if (!process.env.VERCEL) {
+  startServer().catch((error) => {
+    console.error("Backend startup failed:", error.message);
+    process.exit(1);
+  });
+}
