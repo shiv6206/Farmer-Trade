@@ -1,4 +1,5 @@
 import { generateOTP, storeOTP, verifyOTP } from "../services/otpService.js";
+
 import { createOrUpdateUser, findUserByPhone, generateToken, getUserById } from "../services/authService.js";
 
 // @desc    Send OTP to phone number
@@ -22,6 +23,7 @@ const sendOTP = async (req, res) => {
 
     const otp = generateOTP();
     await storeOTP(phone, otp);
+    console.log(`[OTP DEV] ${phone}: ${otp}`);
 
     res.status(200).json({
       success: true,

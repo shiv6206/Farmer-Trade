@@ -26,11 +26,17 @@ const app = express();
 const httpServer = createServer(app);
 const frontendOrigins = (process.env.FRONTEND_URL || "https://farmer-trade-hld9.vercel.app")
   .split(",")
-  .map((origin) => origin.trim())
+  .map((origin) => origin.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
 // Middleware
-app.use(cors({ origin: frontendOrigins }));
+app.use(cors({
+  origin: (origin, callback) => {
+    const isLocalDevelopmentOrigin = process.env.NODE_ENV !== "production"
+      && (origin === "null" || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin));
+    callback(null, !origin || frontendOrigins.includes(origin.replace(/\/+$/, "")) || isLocalDevelopmentOrigin);
+  },
+}));
 app.use(helmet());
 app.use(express.json({ limit: "1mb" }));
 
@@ -55,7 +61,7 @@ app.use("/api/qr", qrRoutes);
 app.use("/api/grievance", grievanceRoutes);
 
 // Start Server & Connect Databases
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 
 const validateProductionConfig = () => {
   if (process.env.NODE_ENV !== "production") return;

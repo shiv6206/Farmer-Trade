@@ -132,7 +132,7 @@ Copy `.env.example` to `.env` for local development. It uses `local.db` for appl
 For MongoDB Atlas credentials, put `MONGO_URI` in `Farmer Trade-backend/.env.local`; the backend loads it before `.env`, and Git ignores that file. Include the intended database name in the URI path.
 
 ```env
-PORT=5000
+PORT=5500
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5510
 OTP_DEV_MODE=true
@@ -154,7 +154,7 @@ node scripts/seedDemoData.js
 npm run dev
 ```
 
-Server starts at `http://localhost:5000`
+Server starts at `http://localhost:5500`
 
 ### 5. Start the Frontend Prototype (Terminal 2)
 
